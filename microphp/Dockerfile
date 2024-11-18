@@ -7,8 +7,7 @@ RUN apk add --no-cache \
     libc-dev \
     libzip-dev \
     php81-sockets \ 
-    docker-php-ext-install \
-    zip
+    && docker-php-ext-install zip
 
 
 # Install PHP extensions (no changes here)
