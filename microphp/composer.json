@@ -9,7 +9,8 @@
         "nyholm/psr7": "*",
         "google/cloud-storage": "*",
         "guzzlehttp/guzzle": "*",
-        "ext-sockets": "*"
+        "ext-sockets": "*",
+        "monolog/monolog": "*"
     },
     "autoload": {
         "psr-4": {
