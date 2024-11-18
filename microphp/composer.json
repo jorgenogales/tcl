@@ -5,6 +5,7 @@
     "require": {
         "php": "^8.1",
         "spiral/roadrunner": "*", 
+        "spiral/roadrunner-http": "*",
         "spiral/roadrunner-worker": "*",
         "nyholm/psr7": "*",
         "google/cloud-storage": "*",

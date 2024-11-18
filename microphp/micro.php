@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 use Spiral\RoadRunner;
 use Google\Cloud\Storage\StorageClient;
@@ -6,10 +9,11 @@ use Monolog\Logger;
 
 require 'vendor/autoload.php';
 
-// Initialize Monolog logger
+$log = new Logger('microphp');
+
+    // Initialize Monolog logger
 $log = new Logger('microphp');
 $log->pushHandler(new Monolog\Handler\StreamHandler('php://stdout', Logger::DEBUG));
-
 
 $log->info("About to create RoadRunner worker");
 $worker = RoadRunner\Worker::create();
