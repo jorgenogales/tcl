@@ -1,15 +1,17 @@
 FROM php:8.1-fpm-alpine
 
-# Install system dependencies
 RUN apk add --no-cache \
     g++ \
     make \
     autoconf \
     libc-dev \
-    libzip-dev \ 
-    && docker-php-ext-install zip
+    libzip-dev \
+    php81-sockets \ 
+    docker-php-ext-install \
+    zip
 
-# Install PHP extensions
+
+# Install PHP extensions (no changes here)
 RUN docker-php-ext-install pdo pdo_mysql
 
 # Install Composer
