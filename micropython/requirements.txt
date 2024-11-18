@@ -2,5 +2,9 @@ gunicorn
 tensorflow
 ultralytics
 torch
-Pillow
+pillow
 torchvision
+flask
+google-cloud-storage
+gevent
+uvicorn

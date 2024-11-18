@@ -1,2 +1,10 @@
 vendor
 **/composer.lock
+__pycache__
+yolov8n.pt
+pyvenv.cfg
+bin
+lib
+etc
+include
+share
