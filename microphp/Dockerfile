@@ -6,12 +6,7 @@ RUN apk add --no-cache \
     autoconf \
     libc-dev \
     libzip-dev \
-    php81-sockets \ 
-    && docker-php-ext-install zip
-
-
-# Install PHP extensions (no changes here)
-RUN docker-php-ext-install pdo pdo_mysql
+    && docker-php-ext-install zip sockets pdo pdo_mysql 
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -37,4 +32,4 @@ CMD ["./rr", "serve", "-c", ".rr.yaml"]
 
 
 # Create a .rr.yaml file (this would normally be part of your project)
-COPY .rr.yaml /app/.rr.yaml 
+COPY .rr.yaml /app/.rr.yaml
