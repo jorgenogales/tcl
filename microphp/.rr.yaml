@@ -1,9 +1,9 @@
 version: "3"
 
 http:
-  address: :8080
+  address: 127.0.0.1:8080
   workers:
-    command: "php ./micro.php"
+    command: "php micro.php"
     pool:
       num_workers: 4 # Adjust as needed
 static:
@@ -11,3 +11,6 @@ static:
     forbid:
       - .php
       - .htaccess
+logs:
+    mode: "development"  # Set logging mode to "development"
+    level: "debug"       # Set logging level to "debug"

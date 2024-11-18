@@ -11,7 +11,7 @@ def call_php_micro():
         A dictionary containing the response data, or None if an error occurred.
     """
     try:
-        response = requests.get('0.0.0.0:8080')
+        response = requests.get('http://0.0.0.0:8080')
         response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
         return response.json()
     except requests.exceptions.RequestException as e:
