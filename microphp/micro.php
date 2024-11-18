@@ -6,15 +6,17 @@ error_reporting(E_ALL);
 use Spiral\RoadRunner;
 use Google\Cloud\Storage\StorageClient;
 use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 require 'vendor/autoload.php';
 
 $log = new Logger('microphp');
 
-    // Initialize Monolog logger
-$log = new Logger('microphp');
-$log->pushHandler(new Monolog\Handler\StreamHandler('php://stdout', Logger::DEBUG));
+// Configure Monolog to output to stdout in the format RoadRunner expects
+$streamHandler = new StreamHandler('php://stderr', Logger::DEBUG);
+$streamHandler->setFormatter(new \Monolog\Formatter\LineFormatter()); 
 
+$log->pushHandler($streamHandler);
 $log->info("About to create RoadRunner worker");
 $worker = RoadRunner\Worker::create();
 $log->info("worker created");
@@ -35,14 +37,14 @@ while ($req = $psr7->waitRequest()) {
 
         // Upload to Google Cloud Storage
         $storage = new StorageClient();
-        $bucketName = 'gs://tklis';
+        $bucketName = 'tklis';
         $bucket = $storage->bucket($bucketName);
         $objectName = uniqid() . '_temp_file.txt';
         $log->info("Uploading to GCS bucket: " . $bucketName . ", object name: " . $objectName);
         $object = $bucket->upload(
             fopen($tempFile, 'r'),
             [
-                'predefinedAcl' => 'publicRead' // Example: making the file public
+                //'predefinedAcl' => 'publicRead' // Example: making the file public
             ]
         );
         $log->info("File uploaded successfully. Media link: " . $object->info()['mediaLink']);
