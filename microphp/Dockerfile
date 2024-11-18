@@ -32,7 +32,7 @@ RUN wget https://github.com/roadrunner-server/roadrunner/releases/download/v2024
     && chmod +x ./rr
 
 # Entrypoint command to start RoadRunner
-CMD ["./rr", "serve", "-c", ".rr.yaml"]
+CMD ["./rr", "serve", "-c", "rr.yaml"]
 
 
 # Create a .rr.yaml file (this would normally be part of your project)
