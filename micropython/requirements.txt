@@ -1,0 +1,6 @@
+gunicorn
+tensorflow
+ultralytics
+torch
+Pillow
+torchvision

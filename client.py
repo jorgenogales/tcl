@@ -2,14 +2,6 @@ import requests
 import json
 
 def call_php_micro():
-    """Calls the PHP microservice to upload a file.
-
-    Args:
-        file_path: The path to the file to upload.
-
-    Returns:
-        A dictionary containing the response data, or None if an error occurred.
-    """
     try:
         response = requests.get('http://0.0.0.0:8080')
         response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
