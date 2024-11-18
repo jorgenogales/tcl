@@ -24,8 +24,12 @@ RUN composer install --no-dev --optimize-autoloader
 EXPOSE 8080
 
 # Add RoadRunner binary.  Replace with the correct version/architecture.
-RUN wget -O ./rr "https://github.com/spiral/roadrunner/releases/download/v2.12.0/rr-linux-amd64" \
-  && chmod +x ./rr
+# Download and extract the latest RoadRunner binary
+RUN wget https://github.com/roadrunner-server/roadrunner/releases/download/v2024.2.1/roadrunner-2024.2.1-linux-amd64.tar.gz \
+    && tar -xzvf roadrunner-2024.2.1-linux-amd64.tar.gz \
+    && mv roadrunner-2024.2.1-linux-amd64/rr . \  
+    && rm roadrunner-2024.2.1-linux-amd64.tar.gz \
+    && chmod +x ./rr
 
 # Entrypoint command to start RoadRunner
 CMD ["./rr", "serve", "-c", ".rr.yaml"]

@@ -4,11 +4,11 @@
     "type": "project",
     "require": {
         "php": "^8.1",
-        "spiral/roadrunner": "^2.12.0", 
-        "spiral/roadrunner-worker": "^2.3.0",
-        "nyholm/psr7": "^1.5",
-        "google/cloud-storage": "^1.34",
-        "guzzlehttp/guzzle": "^7.4",
+        "spiral/roadrunner": "*", 
+        "spiral/roadrunner-worker": "*",
+        "nyholm/psr7": "*",
+        "google/cloud-storage": "*",
+        "guzzlehttp/guzzle": "*",
         "ext-sockets": "*"
     },
     "autoload": {
