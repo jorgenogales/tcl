@@ -51,27 +51,24 @@ while ($req = $psr7->waitRequest()) {
 
         // Call to another microservice after successful upload
         $client = new GuzzleHttp\Client();  // Or any other HTTP client
-        $log->info("Calling other microservice: http://other-microservice-url");
-        $response = $client->request('POST', 'http://other-microservice-url', [
-            'json' => [
-                'fileUrl' => $object->info()['mediaLink'], // Pass the file URL
-                // ... any other data needed by the other microservice
-            ]
-        ]);
-        $log->info("Response from other microservice: " . $response->getStatusCode());
+        $log->info("Calling other microservice: https://micropython-43662665854.europe-southwest1.run.app/predict");
+        $response = $client->request('GET', 'https://micropython-43662665854.europe-southwest1.run.app/predict', []);
+        $log->info("Response from other microservice: " . $response->getStatusCode() . " Body: " . $response->getBody()->getContents());
 
         // Check the response from the other microservice
         if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
             // Successful response
+
             $log->info("Successful response from other microservice.");
+            $log->info("Sending 200 OK response.");
             $psr7->respond(
                 new \Nyholm\Psr7\Response(
                     200,
                     [],
-                    json_encode(['message' => 'File uploaded and processed successfully', 'url' => $object->info()['mediaLink']])
+                    json_encode(['message' => 'File uploaded and processed successfully', 'content' => $response->getBody()->getContents()])
                 )
             );
-            $log->info("Sending 200 OK response.");
+            
         } else {
            // Handle errors from the other microservice
             $log->error("Error response from other microservice: " . $response->getStatusCode());

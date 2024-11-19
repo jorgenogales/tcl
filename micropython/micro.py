@@ -34,8 +34,13 @@ if not os.path.exists(model_path):
 
 # Load the YOLOv8 model
 try:
+    start_time = time.time()
+    logger.info(f"Loading {model_name} model...")
     model = YOLO(model_path)
     logger.info(f"Model loaded from {model_path}")
+    end_time = time.time()
+    download_time = end_time - start_time
+    logger.info(f"Model load time: {download_time:.2f} seconds")
 except Exception as e:
     logger.error(f"Error loading model: {e}")
     raise
