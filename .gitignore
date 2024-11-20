@@ -8,4 +8,9 @@ lib
 etc
 include
 share
+<<<<<<< HEAD
 rr
+=======
+rr
+variables.tf
+>>>>>>> 80f8ce8 (first draft)

@@ -6,10 +6,18 @@ http:
     command: "php micro.php"
     pool:
       num_workers: 1
+    otel:
+      insecure: true
+      compress: false
+      client: http
+      exporter: otlp
+      service_name: tcl # your app name
+      service_version: 1.0.0 # your app version
+      #endpoint: collector:4318
 
 server:
   command: "php micro.php"
 
 logs:
-    mode: "development"  # Set logging mode to "development"
-    level: "debug"       # Set logging level to "debug"
+    #mode: "development"  # Set logging mode to "development"
+    level: "info"       # Set logging level to "debug"

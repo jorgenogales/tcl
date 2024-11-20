@@ -4,6 +4,13 @@ import logging
 import os
 import sys
 import time
+from opentelemetry import trace
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter 
+from opentelemetry.propagate import extract
+from opentelemetry.instrumentation.flask import FlaskInstrumentor
+
+
 
 import torch
 from PIL import Image
@@ -12,6 +19,15 @@ from google.cloud import storage
 from torchvision import transforms
 from ultralytics import YOLO
 import gunicorn.app.base
+
+tracer_provider = TracerProvider()
+# Add a BatchSpanProcessor and the ConsoleSpanExporter
+span_processor = BatchSpanProcessor(ConsoleSpanExporter())
+tracer_provider.add_span_processor(span_processor)
+
+
+# Set the global tracer provider
+trace.set_tracer_provider(tracer_provider)
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', stream=sys.stderr)
@@ -81,6 +97,7 @@ def initialize_worker():
 
 # --- Prediction function ---
 
+
 def predict(image_bytes):
     """
     Performs object detection on an image.
@@ -112,6 +129,9 @@ def predict(image_bytes):
 # --- Flask app ---
 
 app = Flask(__name__)  # Create a Flask app
+FlaskInstrumentor().instrument_app(app)
+
+
 
 @app.route('/predict', methods=['POST', 'GET'])
 def predict_route():
@@ -163,9 +183,4 @@ class StandaloneApplication(gunicorn.app.base.BaseApplication):
 # --- Main block ---
 
 if __name__ == '__main__':
-    options = {
-        'bind': '%s:%s' % ('0.0.0.0', '8080'),
-        'workers': 2,
-        'worker_class': 'uvicorn.workers.UvicornWorker',
-    }
     StandaloneApplication(app).run()

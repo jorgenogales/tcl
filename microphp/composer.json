@@ -11,11 +11,19 @@
         "google/cloud-storage": "*",
         "guzzlehttp/guzzle": "*",
         "ext-sockets": "*",
-        "monolog/monolog": "*"
+        "monolog/monolog": "*",
+        "open-telemetry/sdk": "*",
+        "open-telemetry/exporter-otlp": "*"
     },
     "autoload": {
         "psr-4": {
             "App\\": "./"  
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "tbachert/spi": true
         }
     }
 }
